@@ -9,6 +9,6 @@ default.gpg.key_length = "2048"
 
 ## It is recommended to use absolute paths for the keyring files, otherwise
 ## gpg will assume they are located in ~/.gnupg/ 
-default.gpg.override_keyring_files = false
+default.gpg.override_default_keyring = false
 default.gpg.pubring_file = ""
 default.gpg.secring_file = ""
