@@ -23,7 +23,7 @@ if node.gpg.override_default_keyring
   gpg_opts = "--no-default-keyring --secret-keyring #{node.gpg.secring_file} --keyring #{node.gpg.pubring_file}"
 end
 
-unless system("gpg #{gpg_opts} --list-keys #{node.gpg.name.real}")
+unless system("sudo -u #{node.gpg.user} -i gpg #{gpg_opts} --list-keys #{node.gpg.name.real}")
   package "haveged"
 
   service "haveged" do
@@ -48,7 +48,7 @@ EOS
   end
 
   execute "gpg: generate" do
-    command "gpg #{gpg_opts} --gen-key --batch #{node.gpg.batch_config}"
+    command "sudo -u #{node.gpg.user} -i gpg #{gpg_opts} --gen-key --batch #{node.gpg.batch_config}"
   end
 
   service "haveged" do

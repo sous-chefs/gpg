@@ -12,3 +12,7 @@ default.gpg.key_length = "2048"
 default.gpg.override_default_keyring = false
 default.gpg.pubring_file = ""
 default.gpg.secring_file = ""
+
+## run gpg as the following user which will create the keyring in the user's
+## $HOME/.gnupg directory (unless keyring files are overridden)
+default.gpg.user = "root"
