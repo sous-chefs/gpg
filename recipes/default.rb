@@ -35,7 +35,7 @@ unless system("sudo -u #{node['gpg']['user']} -i gpg #{gpg_opts} --list-keys | g
     content <<-EOS
 Key-Type: #{node['gpg']['key_type']}
 Key-Length: #{node['gpg']['key_length']}
-Name-Real: #{node['gpg']['name.real']}
+Name-Real: #{node['gpg']['name']['real']}
 Name-Comment: #{node['gpg']['name']['comment']}
 Name-Email: #{node['gpg']['name']['email']}
 Expire-Date: #{node['gpg']['expire']['date']}
