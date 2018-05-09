@@ -23,7 +23,7 @@ if node['gpg']['override_default_keyring']
   gpg_opts = "--no-default-keyring --secret-keyring #{node['gpg']['secring_file']} --keyring #{node['gpg']['pubring_file']}"
 end
 
-unless system("sudo -u #{node['gpg']['user']} -i gpg #{gpg_opts} --list-keys | grep \"#{node['gpg']['name']['real']}\"")
+unless system("sudo -u #{node['gpg']['user']} -i gpg #{gpg_opts} --list-keys | grep \"#{node['gpg']['name']['real']}\"") # ~FC048
   package 'haveged'
 
   service 'haveged' do
