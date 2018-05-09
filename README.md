@@ -15,7 +15,7 @@ default['gpg']['key_type'] = "RSA"
 default['gpg']['key_length'] = "2048"
 
 ## It is recommended to use absolute paths for the keyring files, otherwise
-## gpg will assume they are located in ~/.gnupg/ 
+## gpg will assume they are located in ~/.gnupg/
 default['gpg']['override_default_keyring'] = false
 default['gpg']['pubring_file'] = ""
 default['gpg']['secring_file'] = ""
@@ -26,5 +26,5 @@ default['gpg']['user'] = "root"
 ```
 
 # Infos
-* Repository: https://github.com/hw-cookbooks/gpg
-* IRC: Freenode @ #heavywater
+
+- Repository: <https://github.com/sous-chefs/gpg>
