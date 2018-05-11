@@ -4,6 +4,11 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
+  enforce_idempotency: true
+  multiple_converge: 2
+
+verifier: inspec
+  
 platforms:
   - name: amazon-linux
     driver_config:
@@ -19,4 +24,4 @@ platforms:
 suites:
   - name: default
     run_list:
-    - recipe[gpg]
+    - recipe[test::default]
