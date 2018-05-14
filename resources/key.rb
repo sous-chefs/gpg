@@ -11,6 +11,7 @@ property :batch_config_file, String, default: lazy { "/tmp/gpg_batch_config_#{ba
 property :key_type, String, default: '1', equal_to: %w(RSA 1 DSA 17 )
 property :key_length, String, default: '2048', equal_to: %w( 2048 4096 )
 property :passphrase, String
+property :key_file, String
 
 action :generate do
   unless key_exists(new_resource)
@@ -44,6 +45,34 @@ EOS
       live_stream true
     end
 
+  end
+end
+
+action :import do
+  execute "gpg2: import key" do
+    command "sudo -u #{new_resource.user} -i gpg2 --import #{key_file}"
+    not_if { key_exists(new_resource) }
+  end
+end
+
+action :export do
+  execute "gpg2: export key" do
+    command "sudo -u #{new_resource.user} -i gpg2 --export -a \"#{name_real}\" > #{key_file}"
+    not_if { ::File.exists(key_file) }
+  end
+end
+
+action :delete_public_key do
+  execute "gpg2: delete key" do
+    command "sudo -u #{new_resource.user} -i gpg2 --delete-keys -a \"#{name_real}\" > #{key_file}"
+    only_if { ::File.exists(key_file) }
+  end
+end
+
+action :delete_secret_keys do
+  execute "gpg2: delete key" do
+    command "sudo -u #{new_resource.user} -i gpg2 --delete-secret-keys -a \"#{name_real}\" > #{key_file}"
+    only_if { ::File.exists(key_file) }
   end
 end
 
