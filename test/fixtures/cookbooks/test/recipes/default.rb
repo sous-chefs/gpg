@@ -4,7 +4,7 @@ gpg_key 'foo'
 
 gpg_key 'bar'
 
-user 'vagrant'
+user 'vagrant' # Dokken compatability
 
 gpg_key '' do
   user 'vagrant'
@@ -27,3 +27,13 @@ gpg_key 'export'  do
   key_file '/tmp/vagrant.key'
   action :export
 end
+
+gpg_key 'Import Vagrant key to root keychain' do
+  user 'root'
+  name_real 'vagrant'
+  key_file '/tmp/vagrant.key'
+  action :import
+end
+
+# Dummy key for deleting
+include_recipe 'test::dummy_key'
