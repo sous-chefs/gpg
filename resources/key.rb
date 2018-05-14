@@ -57,22 +57,22 @@ end
 
 action :export do
   execute "gpg2: export key" do
-    command "sudo -u #{new_resource.user} -i gpg2 --export -a \"#{name_real}\" > #{key_file}"
-    not_if { ::File.exists(key_file) }
+    command "sudo -u #{new_resource.user} -i gpg2 --export -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
+    not_if { ::File.exist?(new_resource.key_file) }
   end
 end
 
 action :delete_public_key do
   execute "gpg2: delete key" do
-    command "sudo -u #{new_resource.user} -i gpg2 --delete-keys -a \"#{name_real}\" > #{key_file}"
-    only_if { ::File.exists(key_file) }
+    command "sudo -u #{new_resource.user} -i gpg2 --delete-keys -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
+    only_if { ::File.exist?(new_resource.key_file) }
   end
 end
 
 action :delete_secret_keys do
   execute "gpg2: delete key" do
-    command "sudo -u #{new_resource.user} -i gpg2 --delete-secret-keys -a \"#{name_real}\" > #{key_file}"
-    only_if { ::File.exists(key_file) }
+    command "sudo -u #{new_resource.user} -i gpg2 --delete-secret-keys -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
+    only_if { ::File.exist?(key_file) }
   end
 end
 

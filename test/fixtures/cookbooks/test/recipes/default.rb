@@ -1,12 +1,12 @@
 gpg_install
 
-gpg_generate 'foo'
+gpg_key 'foo'
 
-gpg_generate 'bar'
+gpg_key 'bar'
 
 user 'vagrant'
 
-gpg_generate '' do
+gpg_key '' do
   user 'vagrant'
   # override_default_keyring, [true,false], default: false
   # pubring_file, String
@@ -19,4 +19,11 @@ gpg_generate '' do
   key_type '1'
   key_length '4096'
   passphrase 'this-is-not-secure'
+end
+
+gpg_key 'export'  do
+  user 'vagrant'
+  name_real 'vagrant'
+  key_file '/tmp/vagrant.key'
+  action :export
 end

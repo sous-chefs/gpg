@@ -35,3 +35,8 @@ describe bash('sudo -u vagrant -i gpg2 --list-keys') do
   its('exit_status') { should eq 0 }
   its('stdout') { should match /vagrant \(vagrant test key\)/ }
 end
+
+describe file('/tmp/vagrant.key') do
+  it { should exist }
+  its(:content) { should match(/BEGIN PGP PUBLIC KEY BLOCK/) }
+end

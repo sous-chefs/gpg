@@ -33,3 +33,11 @@ key_length               |                                                      
 passphrase               |                                                                                        |                                       |
 no_protection            |                                                                                        |                                       |
 transient_key            |                                                                                        |                                       |
+
+## Actions
+
+- `:generate` (default)
+- `:import` Imports from a key file
+- `:export` Exports a key file
+- `:delete_public_key`
+- `:delete_secret_keys`
