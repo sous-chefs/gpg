@@ -17,6 +17,15 @@ property :key_fingerprint, String
 action :generate do
   unless key_exists(new_resource)
 
+    config_dir = ::File.dirname(new_resource.batch_config_file)
+    unless ::Dir.exist?(config_dir)
+      directory config_dir do
+        owner new_resource.user
+        mode '0700'
+        recursive true
+      end
+    end
+
     file new_resource.batch_config_file do
       content <<-EOS
 Key-Type: #{new_resource.key_type}
