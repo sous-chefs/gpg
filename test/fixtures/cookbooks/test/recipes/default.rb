@@ -21,7 +21,7 @@ gpg_key '' do
   passphrase 'this-is-not-secure'
 end
 
-gpg_key 'export'  do
+gpg_key 'export' do
   user 'vagrant'
   name_real 'vagrant'
   key_file '/tmp/vagrant.key'

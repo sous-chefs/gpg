@@ -3,8 +3,7 @@ property :name, String, default: '' # ~FC108
 action :install do
   include_recipe 'yum-epel'
 
-  package 'haveged'
-  package 'gnupg2' # This now supports no protection
+  package %w(haveged gnupg2)
 
   service 'haveged' do
     supports [:status, :restart]

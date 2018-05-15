@@ -53,28 +53,28 @@ EOS
 end
 
 action :import do
-  execute "gpg2: import key" do
+  execute 'gpg2: import key' do
     command "sudo -u #{new_resource.user} -i gpg2 --import #{new_resource.key_file}"
     not_if { key_exists(new_resource) }
   end
 end
 
 action :export do
-  execute "gpg2: export key" do
+  execute 'gpg2: export key' do
     command "sudo -u #{new_resource.user} -i gpg2 --export -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
     not_if { ::File.exist?(new_resource.key_file) }
   end
 end
 
 action :delete_public_key do
-  execute "gpg2: delete key" do
+  execute 'gpg2: delete key' do
     command "sudo -u #{new_resource.user} -i gpg2 --batch --yes --delete-key \"#{new_resource.key_fingerprint}\""
     only_if { key_exists(new_resource) }
   end
 end
 
 action :delete_secret_keys do
-  execute "gpg2: delete key" do
+  execute 'gpg2: delete key' do
     command "sudo -u #{new_resource.user} -i gpg2 --batch --yes --delete-secret-keys \"#{new_resource.key_fingerprint}\""
     only_if { key_exists(new_resource) }
   end
