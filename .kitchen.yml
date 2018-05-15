@@ -4,6 +4,13 @@ driver:
 provisioner:
   name: chef_zero
   deprecations_as_errors: true
+  # Uncomment when testing idempotency
+  # The add & delete key in dummy_key.rb breaks this right now (on purpose)
+  # enforce_idempotency: true
+  # multiple_converge: 2
+
+verifier: inspec
+
 platforms:
   - name: amazon-linux
     driver_config:
@@ -13,10 +20,10 @@ platforms:
   - name: debian-8
   - name: debian-9
   - name: fedora-27
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
+  - name: ubuntu-18.04
 
 suites:
   - name: default
     run_list:
-    - recipe[gpg]
+    - recipe[test::default]
