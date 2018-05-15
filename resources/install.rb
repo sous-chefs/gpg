@@ -1,7 +1,7 @@
 property :name, String, default: '' # ~FC108
 
 action :install do
-  include_recipe 'yum-epel'
+  include_recipe 'yum-epel' if platform_family?('rhel')
 
   package %w(haveged gnupg2)
 
