@@ -6,8 +6,8 @@ provisioner:
   deprecations_as_errors: true
   # Uncomment when testing idempotency
   # The add & delete key in dummy_key.rb breaks this right now (on purpose)
-  # enforce_idempotency: true
-  # multiple_converge: 2
+  enforce_idempotency: true
+  multiple_converge: 2
 
 verifier: inspec
 
@@ -15,6 +15,9 @@ platforms:
   - name: amazon-linux
     driver_config:
       box: mvbcoding/awslinux
+  - name: amazon-linux-2
+    drive_config:
+      box: winky/amazonlinux-2
   - name: centos-6
   - name: centos-7
   - name: debian-8
