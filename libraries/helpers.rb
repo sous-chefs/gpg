@@ -15,8 +15,6 @@ module Gpg
 
       cmd.run_command
 
-      # puts "AAALTER running #{gpg_check}\n#{cmd.stdout}\n#{cmd.stderr}\n#{cmd.exitstatus}"
-
       cmd.exitstatus == 0
     end
 
