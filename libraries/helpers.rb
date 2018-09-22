@@ -3,11 +3,16 @@ module Gpg
     include Chef::Mixin::ShellOut
 
     def key_exists(new_resource)
-      gpg_check = "sudo -u #{new_resource.user} gpg2"
+      gpg_check = gpg_cmd
       gpg_check << gpg_opts if new_resource.override_default_keyring
-      gpg_check << " --list-keys | grep '#{new_resource.name_real}'"
+      gpg_check << "--list-keys | grep '#{new_resource.name_real}'"
 
-      cmd = Mixlib::ShellOut.new(gpg_check, user: new_resource.user)
+      cmd = Mixlib::ShellOut.new(
+        gpg_check,
+        user: new_resource.user,
+        group: new_resource.group
+      )
+
       cmd.run_command
 
       cmd.exitstatus == 0
@@ -19,6 +24,10 @@ module Gpg
       else
         false
       end
+    end
+
+    def gpg_cmd
+      "gpg2 --homedir #{new_resource.home_dir} "
     end
   end
 end

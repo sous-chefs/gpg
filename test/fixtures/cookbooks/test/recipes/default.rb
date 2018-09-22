@@ -1,37 +1,47 @@
 gpg_install
 
-gpg_key 'foo'
+%w(foo bar foobar).each do |u|
+  user u do
+    manage_home true
+  end
+end
 
-gpg_key 'bar'
+gpg_key 'foo' do
+  user 'foo'
+  passphrase 'this-is-not-secure'
+end
 
-user 'vagrant' # Dokken compatability
+# adding bar to root
+gpg_key 'bar' do
+  passphrase 'this-is-not-secure'
+end
 
-gpg_key '' do
-  user 'vagrant'
+gpg_key 'foobar' do
+  user 'foobar'
   # override_default_keyring, [true,false], default: false
   # pubring_file, String
   # secring_file, String
-  name_real 'vagrant'
-  name_comment 'vagrant test key'
-  name_email 'vagrant@sous-chefs.org'
+  name_real 'Foo Bar'
+  name_comment 'custom comment by foobar'
+  name_email 'foobar@sous-chefs.org'
   expire_date '20200815T145012'
-  batch_config_file '/tmp/vagrant_config'
+  batch_config_file '/tmp/foobar_config'
   key_type '1'
   key_length '4096'
   passphrase 'this-is-not-secure'
 end
 
-gpg_key 'export' do
-  user 'vagrant'
-  name_real 'vagrant'
-  key_file '/tmp/vagrant.key'
+gpg_key 'export foo' do
+  user 'foo'
+  name_real 'foo'
+  key_file '/tmp/foo.key'
   action :export
 end
 
-gpg_key 'Import Vagrant key to root keychain' do
+gpg_key 'import key foo to root keychain' do
   user 'root'
-  name_real 'vagrant'
-  key_file '/tmp/vagrant.key'
+  # name_real 'foo-imported'
+  key_file '/tmp/foo.key'
   action :import
 end
 
