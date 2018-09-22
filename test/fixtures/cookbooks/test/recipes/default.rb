@@ -1,3 +1,5 @@
+user 'vagrant' # Dokken compatability
+
 gpg_install
 
 %w(foo bar foobar).each do |u|
@@ -45,5 +47,3 @@ gpg_key 'import key foo to root keychain' do
   action :import
 end
 
-# Dummy key for deleting
-include_recipe 'test::dummy_key'

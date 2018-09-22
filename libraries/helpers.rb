@@ -3,7 +3,7 @@ module Gpg
     include Chef::Mixin::ShellOut
 
     def key_exists(new_resource)
-      gpg_check = gpg_cmd
+      gpg_check = 'gpg2 '
       gpg_check << gpg_opts if new_resource.override_default_keyring
       gpg_check << "--list-keys | grep '#{new_resource.name_real}'"
 
