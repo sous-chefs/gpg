@@ -7,7 +7,7 @@ action :install do
 
   package %w(haveged gnupg2) if new_resource.install_extra_packages
 
-  service 'haveged' do
+  service 'haveged' do # FIXME: (?) this will create duplicates in case other cookbooks do the same
     supports [:status, :restart]
     action :start
   end
