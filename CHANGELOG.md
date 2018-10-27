@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## Unreleased
+
+- Use circleci for testing
+
 ## 0.3.0 (2018-05-08)
 
 - Sous Chefs will now be maintaining this cookbook. For more information on Sous Chefs see <http://sous-chefs.org/>
