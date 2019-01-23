@@ -53,7 +53,8 @@ EOS
 
     cmd = gpg_cmd
     cmd << gpg_opts(new_resource) if new_resource.override_default_keyring
-    cmd << ' --batch'
+    cmd << " --passphrase #{new_resource.passphrase}"
+    cmd << ' --yes --batch --pinentry-mode loopback'
     cmd << " --gen-key #{new_resource.batch_config_file}"
 
     execute 'gpg2: generate' do
