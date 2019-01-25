@@ -21,7 +21,8 @@ gpg_key 'foo' do
 end
 ```
 
-For further detail please see the documentation for each resource
+For further detail please see the documentation for each resource, or the test cookbook for example usage.
 
 - [gpg_install](documentation/resources/install.md)
 - [gpg_key](documentation/resources/key.md)
+- [Test Cookbook](test/fixtures/cookbooks/test/recipes)
