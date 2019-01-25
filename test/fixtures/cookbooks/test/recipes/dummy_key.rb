@@ -41,7 +41,7 @@ end
 
 # This set of actions (add then delete) will always trigger.
 # For the purposes of testing we'll stick this file on disk
-# so we know we've done it. 
+# so we know we've done it.
 file '/tmp/guard.txt' do
   content 'I am here to stop this resource from always firing'
 end
