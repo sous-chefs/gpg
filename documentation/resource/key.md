@@ -23,3 +23,11 @@
 | `key_fingerprint`          | String           |                                        | Key finger print. Used to identify when deleting keys using the :delete action                             |
 | `pinentry_mode`            | [String, falase] | `loopback` if Ubuntu or False          | Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.                          |
 | `batch`                    | true, false      | true                                   | Turn batch mode on or off when genrating keys                                                              |
+
+## Actions
+
+- `:generate` (default)
+- `:import` Imports from a key file
+- `:export` Exports a key file
+- `:delete_public_key`
+- `:delete_secret_keys`
