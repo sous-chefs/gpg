@@ -6,7 +6,7 @@ description      'Installs/Configures gpg'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 source_url       'https://github.com/sous-chefs/gpg'
 issues_url       'https://github.com/sous-chefs/gpg/issues'
-version          '0.3.0'
+version          '1.0.0'
 chef_version     '>= 13'
 
 depends 'yum-epel'
