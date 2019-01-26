@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Adds two new resources `gpg_install` and `gpg_key`
 - Use circleci for testing
 
 ## 0.3.0 (2018-05-08)
@@ -13,7 +14,7 @@ This file is used to list changes made in each version of the gpg cookbook.
 - Added a chefignore file
 - Added local testing with delivery local mode
 - Added Code of conduct, testing, contributing, license, and changelog files
-- Added chef_version, source_url, and issues_url to the metadata
+- Added `chef_version`, `source_url`, and `issues_url` to the metadata
 - Added ubuntu/debian to the metadata as supported platforms
 - Updated the kitchen config to use Vagrant on common platforms
 - Resolved all cookstyle / foodcritic warnings
