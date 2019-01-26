@@ -4,8 +4,10 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+## 1.0.0 (2019-01-26)
+
 - Adds two new resources `gpg_install` and `gpg_key`
-- Use circleci for testing
+- Use CircleCI for testing
 
 ## 0.3.0 (2018-05-08)
 
