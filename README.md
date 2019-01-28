@@ -1,5 +1,8 @@
 # GPG cookbook
 
+[![Cookbook Version](https://img.shields.io/cookbook/v/gpg.svg)](https://supermarket.chef.io/cookbooks/gpg)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/gpg/master.svg)](https://circleci.com/gh/sous-chefs/gpg)
+
 Installs and configures GPG on a system
 
 ## Custom resources
