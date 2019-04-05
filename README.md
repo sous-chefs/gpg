@@ -26,6 +26,6 @@ end
 
 For further detail please see the documentation for each resource, or the test cookbook for example usage.
 
-- [gpg_install](documentation/resources/install.md)
-- [gpg_key](documentation/resources/key.md)
+- [gpg_install](documentation/resource/install.md)
+- [gpg_key](documentation/resource/key.md)
 - [Test Cookbook](test/fixtures/cookbooks/test/recipes)
