@@ -64,7 +64,7 @@ property :key_fingerprint, String,
 
 # Only Ubuntu supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
-default: lazy { node['platform_family'] == 'ubuntu' ? 'loopback' : false },
+default: lazy { node['platform'] == 'ubuntu' ? 'loopback' : false },
 description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
 property :batch, [TrueClass, FalseClass],
