@@ -84,14 +84,15 @@ action :generate do
     end
 
     file new_resource.batch_config_file do
-      content <<-EOS
-Key-Type: #{new_resource.key_type}
-Key-Length: #{new_resource.key_length}
-Name-Real: #{new_resource.name_real}
-Name-Comment: #{new_resource.name_comment}
-Name-Email: #{new_resource.name_email}
-Expire-Date: #{new_resource.expire_date}
-EOS
+      content <<~EOS
+        Key-Type: #{new_resource.key_type}
+        Key-Length: #{new_resource.key_length}
+        Name-Real: #{new_resource.name_real}
+        Name-Comment: #{new_resource.name_comment}
+        Name-Email: #{new_resource.name_email}
+        Expire-Date: #{new_resource.expire_date}
+      EOS
+
       if new_resource.override_default_keyring
         content << "%pubring #{new_resource.pubring_file}\n"
         content << "%secring #{new_resource.secring_file}\n"
