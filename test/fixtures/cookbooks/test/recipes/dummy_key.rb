@@ -1,4 +1,3 @@
-
 file '/tmp/dummy.key' do
   content <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
