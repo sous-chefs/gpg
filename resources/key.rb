@@ -92,7 +92,7 @@ action :generate do
         Name-Email: #{new_resource.name_email}
         Expire-Date: #{new_resource.expire_date}
       EOS
-
+      
       if new_resource.override_default_keyring
         content << "%pubring #{new_resource.pubring_file}\n"
         content << "%secring #{new_resource.secring_file}\n"
