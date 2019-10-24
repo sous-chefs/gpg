@@ -5,6 +5,8 @@ This file is used to list changes made in each version of the gpg cookbook.
 ## Unreleased
 
 - Use Github Actions for testing
+- Fix the license string in the test cookbook metadata to be a SPDX standard license string
+- Remove ther unnecessary long_desciption metadata from metadata.rb
 
 ## 1.0.0 (2019-01-26)
 
