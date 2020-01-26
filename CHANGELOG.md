@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Use Github Actions for testing
 
 ## 1.0.0 (2019-01-26)
 
