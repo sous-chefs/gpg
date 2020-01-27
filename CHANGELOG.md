@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 - Use Github Actions for testing
 - Fix Ubuntu platform checks in the `gpg_key` resource
+- Use true/false in the resource to simplify the types
 
 ## 1.0.0 (2019-01-26)
 

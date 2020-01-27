@@ -2,7 +2,7 @@ property :batch_name, String,
          name_property: true,
          description: 'Name of  the key/batch to generate.'
 
-property :override_default_keyring, [TrueClass, FalseClass],
+property :override_default_keyring, [true, false],
          default: false,
          description: 'Set to true if you want to override the pubring_file and secring_file locations.'
 
@@ -67,7 +67,7 @@ property :pinentry_mode, [String, FalseClass],
 default: lazy { platform?('ubuntu') ? 'loopback' : false },
 description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
-property :batch, [TrueClass, FalseClass],
+property :batch, [true, false],
 default: true,
 description: 'Turn batch mode on or off when genrating keys'
 
@@ -92,7 +92,7 @@ action :generate do
         Name-Email: #{new_resource.name_email}
         Expire-Date: #{new_resource.expire_date}
       EOS
-      
+
       if new_resource.override_default_keyring
         content << "%pubring #{new_resource.pubring_file}\n"
         content << "%secring #{new_resource.secring_file}\n"
