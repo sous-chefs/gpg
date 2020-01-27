@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
-## Unreleased
+## 1.0.1 (2020-01-26)
 
 - Use Github Actions for testing
 - Fix Ubuntu platform checks in the `gpg_key` resource
