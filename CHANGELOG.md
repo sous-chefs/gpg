@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: resources/install.rb:1:36 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: resources/install.rb:1:37 refactor: `ChefModernize/FoodcriticComments`
+
 ## 1.0.1 (2020-01-26)
 
 - Use Github Actions for testing
