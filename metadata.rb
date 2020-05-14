@@ -5,7 +5,7 @@ license          'Apache-2.0'
 description      'Installs/Configures gpg'
 source_url       'https://github.com/sous-chefs/gpg'
 issues_url       'https://github.com/sous-chefs/gpg/issues'
-version          '1.0.1'
+version          '1.1.0'
 chef_version     '>= 13'
 
 depends 'yum-epel'
