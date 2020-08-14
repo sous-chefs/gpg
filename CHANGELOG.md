@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the gpg cookbook.
 ## Unreleased
 
 - Comment out enforce_idempotency in kitchen.dokken.yml so tests work
+- Update/Remove the platforms we test against
 
 ## 1.1.0 (2020-05-14)
 
