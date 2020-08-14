@@ -10,8 +10,10 @@ transport:
 provisioner:
   name: dokken
   product_name: chef
-  enforce_idempotency: true
-  multiple_converge: 2
+  # Uncomment when testing idempotency
+  # The add & delete key in dummy_key.rb breaks this right now (on purpose)
+  # enforce_idempotency: true
+  # multiple_converge: 2
   solo_rb:
     treat_deprecation_warnings_as_errors: true
 
