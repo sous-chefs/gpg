@@ -62,9 +62,15 @@ property :key_file, String,
 property :key_fingerprint, String,
          description: 'Key finger print. Used to identify when deleting keys using the :delete action'
 
-# Only Ubuntu supports the pinetree_mode. And requires it
+# Only Ubuntu > 16.04 supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
-default: lazy { platform?('ubuntu') ? 'loopback' : false },
+default: lazy {
+  if platform?('ubuntu') && node['platform_version'].to_f > 16.04
+    'loopback'
+  else
+    false
+  end
+},
 description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
 property :batch, [true, false],
