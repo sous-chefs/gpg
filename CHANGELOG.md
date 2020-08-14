@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Comment out enforce_idempotency in kitchen.dokken.yml so tests work
+- Update/Remove the platforms we test against
+- Fix support for pinentry_mode on Ubuntu 16.04
+
 ## 1.1.0 (2020-05-14)
 
 - resolved cookstyle error: resources/install.rb:1:36 convention: `Layout/TrailingWhitespace`
