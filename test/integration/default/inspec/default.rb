@@ -76,7 +76,7 @@ end
 control 'Import key from file non-root user' do
   desc 'The non-root users keychain should exist with correct permission and contain the imported keys'
 
-  describe file('/home/barfoo/.gnupg/secring.gpg') do
+  describe directory('/home/barfoo/.gnupg/') do
     it { should exist }
     its('owner') { should eq 'barfoo' }
     its('group') { should eq 'barfoo' }
