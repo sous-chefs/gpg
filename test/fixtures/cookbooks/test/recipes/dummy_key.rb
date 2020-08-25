@@ -54,7 +54,6 @@ gpg_key 'delete public Dummy key from non-root' do
   not_if { ::File.exist?('/tmp/guard.txt') }
 end
 
-
 # This set of actions (add then delete) will always trigger.
 # For the purposes of testing we'll stick this file on disk
 # so we know we've done it.
