@@ -38,6 +38,22 @@ gpg_key 'delete public Dummy key' do
   not_if { ::File.exist?('/tmp/guard.txt') }
 end
 
+gpg_key 'import Dummy key to non-root keychain' do
+  user 'barfoo'
+  name_real 'dummy'
+  key_file '/tmp/dummy.key'
+  action :import
+  not_if { ::File.exist?('/tmp/guard.txt') }
+end
+
+gpg_key 'delete public Dummy key from non-root' do
+  user 'barfoo'
+  name_real 'dummy'
+  key_fingerprint '7877AF01696A73C4D02176F2964720FF470F4EDB'
+  action :delete_public_key
+  not_if { ::File.exist?('/tmp/guard.txt') }
+end
+
 # This set of actions (add then delete) will always trigger.
 # For the purposes of testing we'll stick this file on disk
 # so we know we've done it.

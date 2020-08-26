@@ -132,6 +132,8 @@ end
 action :import do
   execute 'gpg2: import key' do
     command "#{gpg_cmd} --import #{new_resource.key_file}"
+    user new_resource.user
+    group new_resource.group
     not_if { key_exists(new_resource) }
   end
 end
@@ -139,6 +141,8 @@ end
 action :export do
   execute 'gpg2: export key' do
     command "#{gpg_cmd} --export -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
+    user new_resource.user
+    group new_resource.group
     not_if { ::File.exist?(new_resource.key_file) }
   end
 end
@@ -146,6 +150,8 @@ end
 action :delete_public_key do
   execute 'gpg2: delete key' do
     command "#{gpg_cmd} --batch --yes --delete-key \"#{new_resource.key_fingerprint}\""
+    user new_resource.user
+    group new_resource.group
     only_if { key_exists(new_resource) }
   end
 end
@@ -153,6 +159,8 @@ end
 action :delete_secret_keys do
   execute 'gpg2: delete key' do
     command "#{gpg_cmd} --batch --yes --delete-secret-keys \"#{new_resource.key_fingerprint}\""
+    user new_resource.user
+    group new_resource.group
     only_if { key_exists(new_resource) }
   end
 end

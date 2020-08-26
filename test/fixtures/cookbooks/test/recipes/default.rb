@@ -1,6 +1,6 @@
 gpg_install
 
-%w(foo bar foobar).each do |u|
+%w(foo bar foobar barfoo).each do |u|
   user u do
     manage_home true
   end
@@ -40,6 +40,13 @@ end
 
 gpg_key 'import key foo to root keychain' do
   user 'root'
+  # name_real 'foo-imported'
+  key_file '/tmp/foo.key'
+  action :import
+end
+
+gpg_key 'import key foo to barfoo keychain' do
+  user 'barfoo'
   # name_real 'foo-imported'
   key_file '/tmp/foo.key'
   action :import
