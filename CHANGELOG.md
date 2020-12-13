@@ -2,6 +2,9 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## Unreleased
+- Added support for SUSE and OpenSUSE
+
 ## 1.2.0 (2020-08-26)
 
 - Comment out enforce_idempotency in kitchen.dokken.yml so tests work
