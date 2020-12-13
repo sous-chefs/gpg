@@ -31,11 +31,13 @@ module Gpg
     end
 
     def gpg2_packages
+      packages = %w(haveged)
       if platform?('opensuseleap', 'suse')
-        'gpg2'
+        packages.push('gpg2')
       else
-        'gnupg2'
+        packages.push('gnupg2')
       end
+      packages
     end
   end
 end
