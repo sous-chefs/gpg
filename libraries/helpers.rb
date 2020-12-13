@@ -29,5 +29,13 @@ module Gpg
     def gpg_cmd
       "gpg2 --homedir #{new_resource.home_dir} "
     end
+
+    def gpg2_packages
+      if platform?('opensuseleap', 'suse')
+        'gpg2'
+      else
+        'gnupg2'
+      end
+    end
   end
 end
