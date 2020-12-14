@@ -32,7 +32,7 @@ module Gpg
 
     def gpg2_packages
       packages = %w(haveged)
-      if platform?('opensuseleap', 'suse')
+      if platform_family?('suse')
         packages.push('gpg2')
       else
         packages.push('gnupg2')
