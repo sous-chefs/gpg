@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
-## Unreleased
+## 1.3.0 - *2020-12-14*
 
 - Added support for SUSE and OpenSUSE
 
