@@ -29,5 +29,15 @@ module Gpg
     def gpg_cmd
       "gpg2 --homedir #{new_resource.home_dir} "
     end
+
+    def gpg2_packages
+      packages = %w(haveged)
+      if platform_family?('suse')
+        packages.push('gpg2')
+      else
+        packages.push('gnupg2')
+      end
+      packages
+    end
   end
 end

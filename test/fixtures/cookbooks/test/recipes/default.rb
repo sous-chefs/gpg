@@ -1,8 +1,10 @@
 gpg_install
 
 %w(foo bar foobar barfoo).each do |u|
+  group u
   user u do
     manage_home true
+    gid u
   end
 end
 
