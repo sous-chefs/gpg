@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Update tested platforms
+- Set minimum Chef version to 15.3 for unified_mode support
+
 ## 1.3.0 - *2020-12-14*
 
 - Added support for SUSE and OpenSUSE
