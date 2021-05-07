@@ -6,7 +6,7 @@ description      'Installs/Configures gpg'
 source_url       'https://github.com/sous-chefs/gpg'
 issues_url       'https://github.com/sous-chefs/gpg/issues'
 version          '1.3.0'
-chef_version     '>= 13'
+chef_version     '>= 15.3'
 
 depends 'yum-epel'
 

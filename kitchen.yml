@@ -15,16 +15,17 @@ provisioner:
 verifier: inspec
 
 platforms:
-  - name: amazon-linux-2
+  - name: amazonlinux-2
   - name: centos-7
   - name: centos-8
   - name: debian-9
   - name: debian-10
-  - name: fedora-32
-  - name: ubuntu-16.04
-  - name: ubuntu-18.04
-  - name: ubuntu-20.04
+  - name: freebsd-11
+  - name: freebsd-12
+  - name: fedora-latest
   - name: opensuse-leap-15
+  - name: ubuntu-20.04
+  - name: ubuntu-21.04
 
 suites:
   - name: default

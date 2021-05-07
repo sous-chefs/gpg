@@ -1,3 +1,5 @@
+unified_mode true
+
 property :name, String, default: ''
 
 action :install do

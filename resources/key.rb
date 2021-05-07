@@ -1,3 +1,5 @@
+unified_mode true
+
 property :batch_name, String,
          name_property: true,
          description: 'Name of  the key/batch to generate.'
@@ -64,18 +66,18 @@ property :key_fingerprint, String,
 
 # Only Ubuntu > 16.04 supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
-default: lazy {
-  if platform?('ubuntu') && node['platform_version'].to_f > 16.04
-    'loopback'
-  else
-    false
-  end
-},
-description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
+         default: lazy {
+           if platform?('ubuntu') && node['platform_version'].to_f > 16.04
+             'loopback'
+           else
+             false
+           end
+         },
+         description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
 property :batch, [true, false],
-default: true,
-description: 'Turn batch mode on or off when genrating keys'
+         default: true,
+         description: 'Turn batch mode on or off when genrating keys'
 
 action :generate do
   unless key_exists(new_resource)
