@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
-## Unreleased
+## 2.0.0 - *2021-05-07*
 
 - Update tested platforms
 - Set minimum Chef version to 15.3 for unified_mode support
