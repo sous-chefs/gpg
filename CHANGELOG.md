@@ -4,17 +4,28 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Fix markdown formatting in the changelog
+- Standardise files with files in sous-chefs/repo-management
+
 ## 2.0.7 - *2023-05-16*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.6 - *2023-05-03*
 
+- Standardise files with files in sous-chefs/repo-management
+
 ## 2.0.5 - *2023-04-01*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.4 - *2023-03-02*
 
+- Standardise files with files in sous-chefs/repo-management
+
 ## 2.0.3 - *2023-02-14*
 
-- Remove delivery folder 
+- Remove delivery folder
 
 ## 2.0.2 - *2021-08-31*
 
