@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## Unreleased
+
 ## 2.0.7 - *2023-05-16*
 
 ## 2.0.6 - *2023-05-03*
