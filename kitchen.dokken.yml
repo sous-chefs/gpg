@@ -2,6 +2,8 @@ driver:
   name: dokken
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  multiple_converge: 2
+  enforce_idempotency: true
 
 transport: { name: dokken }
 provisioner: { name: dokken }

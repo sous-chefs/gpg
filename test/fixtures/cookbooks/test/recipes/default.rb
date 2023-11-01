@@ -54,5 +54,12 @@ gpg_key 'import key foo to barfoo keychain' do
   action :import
 end
 
+# Importing the specified key
+gpg_key 'Import Ubuntu Key' do
+  keyserver 'keyserver.ubuntu.com'
+  key_fingerprint %w(409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB)
+  action :import
+end
+
 # Dummy key for deleting
 include_recipe 'test::dummy_key'

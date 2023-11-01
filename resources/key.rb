@@ -61,8 +61,9 @@ property :passphrase, String,
 property :key_file, String,
          description: 'Keyfile name'
 
-property :key_fingerprint, String,
-         description: 'Key finger print. Used to identify when deleting keys using the :delete action'
+property :key_fingerprint, [String, Array],
+         description: 'Key finger print. Used to identify when deleting keys using the :delete action',
+         coerce: proc { |x| Array(x) }
 
 # Only Ubuntu > 16.04 supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
@@ -72,6 +73,9 @@ property :pinentry_mode, [String, FalseClass],
 property :batch, [true, false],
          default: true,
          description: 'Turn batch mode on or off when genrating keys'
+
+property :keyserver, String,
+         description: 'Keyserver to receive keys from'
 
 action :generate do
   unless key_exists(new_resource)
@@ -126,11 +130,24 @@ action :generate do
 end
 
 action :import do
-  execute 'gpg2: import key' do
-    command "#{gpg_cmd} --import #{new_resource.key_file}"
-    user new_resource.user
-    group new_resource.group
-    not_if { key_exists(new_resource) }
+  Array(new_resource.key_fingerprint).each do |key|
+    package 'dirmngr'
+
+    # If a keyserver is specified, use that to import the key
+    if new_resource.keyserver
+      cmd = "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{key}"
+      title = "Receive Key #{key}"
+    else
+      cmd = "#{gpg_cmd} --import #{new_resource.key_file}"
+      title = "Import Key from #{new_resource.key_file}"
+    end
+
+    execute "gpg2: #{title}" do
+      command cmd
+      user new_resource.user
+      group new_resource.group
+      not_if { key_exists(new_resource, key) }
+    end
   end
 end
 
