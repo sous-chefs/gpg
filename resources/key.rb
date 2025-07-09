@@ -130,9 +130,9 @@ action :generate do
 end
 
 action :import do
-  Array(new_resource.key_fingerprint).each do |key|
-    package 'dirmngr'
+  package 'dirmngr'
 
+  Array(new_resource.key_fingerprint).each do |key|
     # If a keyserver is specified, use that to import the key
     if new_resource.keyserver
       cmd = "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{key}"
