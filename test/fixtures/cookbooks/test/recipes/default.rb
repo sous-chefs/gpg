@@ -49,7 +49,7 @@ end
 
 gpg_key 'import key foo to barfoo keychain' do
   user 'barfoo'
-  # name_real 'foo-imported'
+  name_real 'foo-imported'
   key_file '/tmp/foo.key'
   action :import
 end
@@ -63,3 +63,6 @@ end
 
 # Dummy key for deleting
 include_recipe 'test::dummy_key'
+
+# Two keys scenario - add two keys, delete one
+include_recipe 'test::two_keys'
