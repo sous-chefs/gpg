@@ -55,9 +55,9 @@ gpg_key 'import key foo to barfoo keychain' do
 end
 
 # Importing the specified key
-gpg_key 'Import Ubuntu Key' do
+gpg_key 'Import RVM Key' do
   keyserver 'keyserver.ubuntu.com'
-  key_fingerprint %w(409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB)
+  key_fingerprint '409B6B1796C275462A1703113804BB82D39DC0E3'
   action :import
 end
 

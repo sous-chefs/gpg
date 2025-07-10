@@ -9,7 +9,7 @@ This file is used to list changes made in each version of the gpg cookbook.
   - There doesn't seem to be a sensible way to set the home-directory or load the keyring for the user in the test environment
 - Fix installation for Amazon Linux 2023
 - Fix installation on SUSE (add missing package dependencies)
--
+- Breaking change: only allow 1 key to be imported at a time
 
 ## 2.0.11 - *2023-09-28*
 

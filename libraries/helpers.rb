@@ -2,14 +2,14 @@ module Gpg
   module Helpers
     include Chef::Mixin::ShellOut
 
-    def key_exists(new_resource, key = nil)
+    def key_exists(new_resource)
       gpg_check = gpg_cmd
       gpg_check << override_command(new_resource) if new_resource.override_default_keyring
 
-      gpg_check << if new_resource.keyserver
-                     "--list-keys #{key}"
+      gpg_check << if new_resource.key_fingerprint
+                     " --list-keys #{new_resource.key_fingerprint}"
                    else
-                     "--list-keys | grep #{new_resource.name_real}"
+                     " --list-keys | grep #{new_resource.name_real}"
                    end
 
       cmd = Mixlib::ShellOut.new(

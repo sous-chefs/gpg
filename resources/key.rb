@@ -61,18 +61,16 @@ property :passphrase, String,
 property :key_file, String,
          description: 'Keyfile name'
 
-property :key_fingerprint, [String, Array],
-         description: 'Key finger print. Used to identify when deleting keys using the :delete action',
-         coerce: proc { |x| Array(x) }
+property :key_fingerprint, String,
+         description: 'Key fingerprint. Used to identify'
 
-# Only Ubuntu > 16.04 supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
-         default: platform?('ubuntu') && node['platform_version'].to_f > 16.04 ? 'loopback' : false,
+         default: 'loopback',
          description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
 property :batch, [true, false],
          default: true,
-         description: 'Turn batch mode on or off when genrating keys'
+         description: 'Turn batch mode on or off when generating keys'
 
 property :keyserver, String,
          description: 'Keyserver to receive keys from'
@@ -116,10 +114,10 @@ action :generate do
     cmd << " --passphrase #{new_resource.passphrase}"
     cmd << ' --yes'
     cmd << ' --batch' if new_resource.batch
-    cmd << ' --pinentry-mode loopback' if new_resource.pinentry_mode
+    cmd << " --pinentry-mode #{new_resource.pinentry_mode}" if new_resource.pinentry_mode
     cmd << " --gen-key #{new_resource.batch_config_file}"
 
-    execute 'gpg2: generate' do
+    execute "gpg2: generate #{new_resource.batch_name}" do
       command cmd
       live_stream true
       user new_resource.user
@@ -132,21 +130,20 @@ end
 action :import do
   package 'dirmngr'
 
-  Array(new_resource.key_fingerprint).each do |key|
-    # If a keyserver is specified, use that to import the key
-    if new_resource.keyserver
-      cmd = "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{key}"
-      title = "Receive Key #{key}"
-    else
-      cmd = "#{gpg_cmd} --import #{new_resource.key_file}"
-      title = "Import Key from #{new_resource.key_file}"
-    end
-
-    execute "gpg2: #{title}" do
-      command cmd
+  # If a keyserver is specified, use that to import the key
+  if new_resource.keyserver
+    execute "gpg2: Receive key #{new_resource.key_fingerprint}" do
+      command "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{new_resource.key_fingerprint}"
       user new_resource.user
       group new_resource.group
-      not_if { key_exists(new_resource, key) }
+      not_if { key_exists(new_resource) }
+    end
+  else
+    execute "gpg2: Import key #{new_resource.key_fingerprint}" do
+      command "#{gpg_cmd} --import #{new_resource.key_file}"
+      user new_resource.user
+      group new_resource.group
+      not_if { key_exists(new_resource) }
     end
   end
 end

@@ -20,7 +20,7 @@
 | `batch_config_file`        | String          | gpg_batch_config_#{batch_name}         | Batch config file name                                                                                     |
 | `passphrase`               | String          |                                        | Passphrase for key                                                                                         |
 | `key_file`                 | String          |                                        | Keyfile name                                                                                               |
-| `key_fingerprint`          | [String, Array] |                                        | Key fingerprint. Used to identify keys                                                                     |
+| `key_fingerprint`          | String          |                                        | Key fingerprint. Used to identify keys                                                                     |
 | `pinentry_mode`            | [String, false] | `loopback` if Ubuntu or False          | Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.                          |
 | `batch`                    | [true, false]   | true                                   | Turn batch mode on or off when genrating keys                                                              |
 | `keyserver`                | String          |                                        | Keyserver to use when importing keys                                                                       |
