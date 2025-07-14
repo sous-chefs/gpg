@@ -11,6 +11,12 @@ This file is used to list changes made in each version of the gpg cookbook.
 - Fix installation on SUSE (add missing package dependencies)
 - Breaking change: only allow 1 key to be imported at a time
 
+## 2.0.14 - *2024-12-05*
+
+## 2.0.13 - *2024-05-02*
+
+## 2.0.12 - *2024-05-02*
+
 ## 2.0.11 - *2023-09-28*
 
 ## 2.0.10 - *2023-09-04*
