@@ -1,3 +1,29 @@
+# Test key import from file and keyserver
+# Depends on test_export.rb having been run first
+
+# Import a key from a file to root keychain
+gpg_key 'import key foo to root keychain' do
+  user 'root'
+  key_file '/tmp/foo.key'
+  action :import
+end
+
+# Import a key from a file to a non-root user keychain, specifying a custom name
+gpg_key 'import key foo to barfoo keychain' do
+  user 'barfoo'
+  name_real 'foo-imported'
+  key_file '/tmp/foo.key'
+  action :import
+end
+
+# Import a key from a keyserver
+gpg_key 'Import RVM Key' do
+  keyserver 'keyserver.ubuntu.com'
+  key_fingerprint '409B6B1796C275462A1703113804BB82D39DC0E3'
+  action :import
+end
+
+# Create and import dummy key
 file '/tmp/dummy.key' do
   content <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----

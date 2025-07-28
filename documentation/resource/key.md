@@ -30,5 +30,5 @@
 - `:generate` (default)
 - `:import` Imports from a key file
 - `:export` Exports a key file
-- `:delete_public_key`
+- `:delete_keys`
 - `:delete_secret_keys`

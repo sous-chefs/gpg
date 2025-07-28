@@ -1,7 +1,11 @@
-# Generate two keys directly in memory
+# Test deletion scenarios
+# - Add key-1 and key-2
+# - Delete only the secret portion of key-1
+# - Delete both public and secret portions of key-2
+
 gpg_install
 
-
+# Generate two keys
 gpg_key 'key1' do
   batch_name 'key1'
   name_real 'Test Key One'
@@ -24,14 +28,21 @@ gpg_key 'key2' do
   action :generate
 end
 
-# Delete secret keys first (requires fingerprint in batch mode)
+# Scenario 1: Delete only the secret portion of key-1
 gpg_key 'key1' do
   name_real 'Test Key One'
   action :delete_secret_keys
 end
 
+# Scenario 2: Delete both secret and public portions of key-2
+# Delete secret keys first (requires fingerprint in batch mode)
+gpg_key 'key2' do
+  name_real 'Test Key Two'
+  action :delete_secret_keys
+end
+
 # Then delete public keys
-gpg_key 'key1' do
-  name_real 'Test Key One'
+gpg_key 'key2' do
+  name_real 'Test Key Two'
   action :delete_keys
 end

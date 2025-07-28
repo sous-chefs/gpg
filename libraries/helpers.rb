@@ -9,7 +9,7 @@ module Gpg
       gpg_check << if new_resource.key_fingerprint
                      " --list-keys #{new_resource.key_fingerprint}"
                    else
-                     " --list-keys | grep #{new_resource.name_real}"
+                     " --list-keys | grep '#{new_resource.name_real}'"
                    end
 
       cmd = Mixlib::ShellOut.new(
@@ -17,9 +17,47 @@ module Gpg
         user: new_resource.user,
         group: new_resource.group
       )
-
       cmd.run_command
+
+      puts "\n\n------- DEBUG"
+      puts "User: #{new_resource.user}"
+      puts "Group: #{new_resource.group}"
+      puts "Cmd: #{gpg_check}"
+      puts "Key: #{new_resource.key_fingerprint}"
+      puts "Name: #{new_resource.name_real}"
+      puts cmd.stdout
+      puts cmd.stderr
+      puts cmd.exitstatus
+      puts "------- DEBUG\n\n"
+
       cmd.exitstatus == 0
+    end
+
+    # Retrieves the fingerprint for a GPG key by name
+    # @param new_resource [Chef::Resource] The resource with user, group, and name_real attributes
+    # @return [String, nil] The fingerprint if found, nil otherwise
+    def get_fingerprint(new_resource)
+      return new_resource.key_fingerprint if new_resource.key_fingerprint
+
+      cmd_str = gpg_cmd
+      cmd_str << override_command(new_resource) if new_resource.override_default_keyring
+      cmd_str << " --list-keys --with-colons '#{new_resource.name_real}' | grep fpr | cut -d ':' -f 10"
+
+      cmd = Mixlib::ShellOut.new(
+        cmd_str,
+        user: new_resource.user,
+        group: new_resource.group
+      )
+      cmd.run_command
+
+      if cmd.exitstatus == 0 && !cmd.stdout.strip.empty?
+        fingerprint = cmd.stdout.strip
+        Chef::Log.info("Found fingerprint for #{new_resource.name_real}: #{fingerprint}")
+        return fingerprint
+      else
+        Chef::Log.warn("Failed to retrieve fingerprint for #{new_resource.name_real}")
+        return nil
+      end
     end
 
     def override_command(new_resource)
