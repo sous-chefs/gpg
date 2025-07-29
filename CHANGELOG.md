@@ -4,6 +4,13 @@ This file is used to list changes made in each version of the gpg cookbook.
 
 ## Unreleased
 
+- Add support for adding keys via --keyserver and --recv-keys
+- Remove broken test for user public key
+  - There doesn't seem to be a sensible way to set the home-directory or load the keyring for the user in the test environment
+- Fix installation for Amazon Linux 2023
+- Fix installation on SUSE (add missing package dependencies)
+- Breaking change: only allow 1 key to be imported at a time
+
 ## 2.0.14 - *2024-12-05*
 
 ## 2.0.13 - *2024-05-02*

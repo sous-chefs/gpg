@@ -1,7 +1,7 @@
 ---
 name: ci
 
-"on":
+'on':
   pull_request:
   push:
     branches:
@@ -23,15 +23,14 @@ jobs:
     strategy:
       matrix:
         os:
-          - "amazonlinux-2"
-          - "centos-7"
-          - "centos-8"
-          - "debian-9"
-          - "debian-10"
+          - "amazonlinux-2023"
+          - "almalinux-9"
+          - "debian-11"
+          - "debian-12"
           - "fedora-latest"
           - "opensuse-leap-15"
-          - "ubuntu-2004"
-          - "ubuntu-2104"
+          - "ubuntu-2204"
+          - "ubuntu-2404"
         suite:
           - "default"
       fail-fast: false

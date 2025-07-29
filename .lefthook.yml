@@ -1,0 +1,13 @@
+---
+pre-commit:
+  parallel: true
+  commands:
+    cookstyle:
+      glob: "**/*.rb"
+      run: bundle exec cookstyle --fix {files}
+    yamllint:
+      glob: "**/*.{yml,yaml}"
+      run: bundle exec yamllint {files}
+    markdownlint:
+      glob: "**/*.md"
+      run: bundle exec markdownlint-cli2 --fix {files}
