@@ -53,10 +53,10 @@ module Gpg
       if cmd.exitstatus == 0 && !cmd.stdout.strip.empty?
         fingerprint = cmd.stdout.strip
         Chef::Log.info("Found fingerprint for #{new_resource.name_real}: #{fingerprint}")
-        return fingerprint
+        fingerprint
       else
         Chef::Log.warn("Failed to retrieve fingerprint for #{new_resource.name_real}")
-        return nil
+        nil
       end
     end
 

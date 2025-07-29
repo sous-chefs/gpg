@@ -28,12 +28,6 @@ gpg_key 'key2' do
   action :generate
 end
 
-# Scenario 1: Delete only the secret portion of key-1
-gpg_key 'key1' do
-  name_real 'Test Key One'
-  action :delete_secret_keys
-end
-
 # Scenario 2: Delete both secret and public portions of key-2
 # Delete secret keys first (requires fingerprint in batch mode)
 gpg_key 'key2' do

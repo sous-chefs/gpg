@@ -131,10 +131,10 @@ action :import do
   package 'dirmngr'
 
   cmd = if new_resource.keyserver
-    "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{new_resource.key_fingerprint}"
-  else
-    "#{gpg_cmd} --import #{new_resource.key_file}"
-  end
+          "#{gpg_cmd} --keyserver #{new_resource.keyserver} --recv-keys #{new_resource.key_fingerprint}"
+        else
+          "#{gpg_cmd} --import #{new_resource.key_file}"
+        end
 
   execute "gpg2: Import key #{new_resource.key_fingerprint}" do
     command cmd
