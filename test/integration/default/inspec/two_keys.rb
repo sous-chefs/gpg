@@ -4,21 +4,18 @@ control 'Two Keys Scenario' do
   title 'Add two keys, delete one, verify only one remains'
   desc 'After adding two keys and deleting one, only one key should remain in the keyring'
 
-  # Verify first key (Test Key One) was deleted
   describe bash('sudo -u root -i gpg2 --list-keys "Test Key One"') do
+    its('exit_status') { should eq 0 }
+    its('stdout') { should match(/Test Key One/) }
+  end
+
+  describe bash('sudo -u root -i gpg2 --list-keys "Test Key Two"') do
     its('exit_status') { should eq 2 }
     its('stderr') { should match(/No public key/) }
   end
 
-  # Verify second key (Test Key Two) still exists
-  describe bash('sudo -u root -i gpg2 --list-keys "Test Key Two"') do
-    its('exit_status') { should eq 0 }
-    its('stdout') { should match(/Test Key Two/) }
-  end
-
-  # Verify we have the key2 email in keyring
   describe bash('sudo -u root -i gpg2 --list-keys') do
-    its('stdout') { should match(/key2@example.com/) }
-    its('stdout') { should_not match(/key1@example.com/) }
+    its('stdout') { should match(/key1@example.com/) }
+    its('stdout') { should_not match(/key2@example.com/) }
   end
 end

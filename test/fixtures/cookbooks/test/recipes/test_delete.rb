@@ -1,9 +1,6 @@
 # Test deletion scenarios
 # - Add key-1 and key-2
 # - Delete both public and secret portions of key-2
-
-gpg_install
-
 # Generate two keys
 gpg_key 'key1' do
   batch_name 'key1'
@@ -25,6 +22,14 @@ gpg_key 'key2' do
   passphrase 'test-passphrase-2'
   pinentry_mode 'loopback'
   action :generate
+  notifies :create, 'file[key2]', :immediately
+  not_if { File.exist?('/tmp/key2') }
+end
+
+file 'key2' do
+  path '/tmp/key2'
+  content 'Only create key2 once.'
+  action :nothing
 end
 
 # Scenario 2: Delete both secret and public portions of key-2
@@ -32,7 +37,7 @@ end
 gpg_key 'key2' do
   name_real 'Test Key Two'
   action :delete_secret_keys
-  notifies :delete_keys, 'gpg_key[key2]', :immediately
+  notifies :delete_keys, 'gpg_key[key2]', :delayed
 end
 
 gpg_key 'key2' do

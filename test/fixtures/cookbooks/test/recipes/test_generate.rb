@@ -1,6 +1,4 @@
 # Test key generation with various options
-gpg_install
-
 # Setup users for testing
 %w(foo bar foobar barfoo).each do |u|
   group u
