@@ -2,12 +2,12 @@ module Gpg
   module Helpers
     include Chef::Mixin::ShellOut
 
-    def key_exists(new_resource)
+    def key_exists(new_resource, fingerprint)
       gpg_check = gpg_cmd
       gpg_check << override_command(new_resource) if new_resource.override_default_keyring
 
-      gpg_check << if new_resource.key_fingerprint
-                     " --list-keys #{new_resource.key_fingerprint}"
+      gpg_check << if fingerprint
+                     " --list-keys #{fingerprint}"
                    else
                      " --list-keys | grep '#{new_resource.name_real}'"
                    end
@@ -18,19 +18,21 @@ module Gpg
         group: new_resource.group
       )
       cmd.run_command
-
-      puts "\n\n------- DEBUG"
-      puts "User: #{new_resource.user}"
-      puts "Group: #{new_resource.group}"
-      puts "Cmd: #{gpg_check}"
-      puts "Key: #{new_resource.key_fingerprint}"
-      puts "Name: #{new_resource.name_real}"
-      puts cmd.stdout
-      puts cmd.stderr
-      puts cmd.exitstatus
-      puts "------- DEBUG\n\n"
-
       cmd.exitstatus == 0
+    end
+
+    def key_file_fingerprint(new_resource)
+      gpg_show = gpg_cmd
+      gpg_show << override_command(new_resource) if new_resource.override_default_keyring
+      gpg_show << " --show-keys #{new_resource.key_file} | awk 'NR==2 {print $1}'"
+
+      cmd = Mixlib::ShellOut.new(
+        gpg_show,
+        user: new_resource.user,
+        group: new_resource.group
+      )
+      cmd.run_command
+      cmd.stdout
     end
 
     # Retrieves the fingerprint for a GPG key by name

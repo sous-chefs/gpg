@@ -76,7 +76,9 @@ property :keyserver, String,
          description: 'Keyserver to receive keys from'
 
 action :generate do
-  unless key_exists(new_resource)
+  key_fingerprint = new_resource.key_fingerprint || get_fingerprint(new_resource)
+
+  unless key_exists(new_resource, key_fingerprint)
 
     config_dir = ::File.dirname(new_resource.batch_config_file)
 
@@ -136,11 +138,13 @@ action :import do
           "#{gpg_cmd} --import #{new_resource.key_file}"
         end
 
-  execute "gpg2: Import key #{new_resource.key_fingerprint}" do
+  key_fingerprint = new_resource.key_fingerprint || key_file_fingerprint(new_resource)
+
+  execute "gpg2: Import key #{key_fingerprint}" do
     command cmd
     user new_resource.user
     group new_resource.group
-    not_if { key_exists(new_resource) }
+    not_if { key_exists(new_resource, key_fingerprint) }
   end
 end
 
@@ -156,44 +160,22 @@ end
 action :delete_keys do
   execute 'gpg2: delete key' do
     key_identifier = new_resource.key_fingerprint || new_resource.name_real
+
     command "#{gpg_cmd} --batch --yes --delete-keys '#{key_identifier}'"
     user new_resource.user
     group new_resource.group
-    only_if { key_exists(new_resource) }
+    only_if { key_exists(new_resource, key_identifier) }
   end
 end
 
 action :delete_secret_keys do
-  # For batch mode with secret keys, we MUST use fingerprint
-  # We need to get the fingerprint first
-  ruby_block "get_fingerprint_for_#{new_resource.name || 'key'}" do
-    block do
-      # Use the helper method to get the fingerprint
-      fingerprint = get_fingerprint(new_resource)
-      if fingerprint
-        # Store for use in the execute resource
-        node.run_state['current_fingerprint'] = fingerprint
-        Chef::Log.info("Found fingerprint for #{new_resource.name_real}: #{fingerprint}")
-      else
-        Chef::Log.warn("Failed to retrieve fingerprint for #{new_resource.name_real}")
-        node.run_state['current_fingerprint'] = nil
-      end
-    end
-    # Run this block immediately
-    action :run
-    only_if { key_exists(new_resource) }
-  end
+  fingerprint = new_resource.key_fingerprint || get_fingerprint(new_resource)
 
-  # Use the found fingerprint or the one provided in the resource
-  execute 'gpg2: delete key' do
-    # We need to use lazy evaluation for the entire command
-    command lazy {
-      fingerprint = new_resource.key_fingerprint || node.run_state['current_fingerprint']
-      "#{gpg_cmd} --yes --batch --delete-secret-keys '#{fingerprint}'"
-    }
+  execute 'gpg2: delete secret key' do
+    command "#{gpg_cmd} --yes --batch --delete-secret-keys '#{fingerprint}'"
     user new_resource.user
     group new_resource.group
-    only_if { key_exists(new_resource) && (new_resource.key_fingerprint || node.run_state['current_fingerprint']) }
+    only_if { key_exists(new_resource, fingerprint) }
   end
 end
 

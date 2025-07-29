@@ -1,6 +1,5 @@
 # Test deletion scenarios
 # - Add key-1 and key-2
-# - Delete only the secret portion of key-1
 # - Delete both public and secret portions of key-2
 
 gpg_install
@@ -33,10 +32,10 @@ end
 gpg_key 'key2' do
   name_real 'Test Key Two'
   action :delete_secret_keys
+  notifies :delete_keys, 'gpg_key[key2]', :immediately
 end
 
-# Then delete public keys
 gpg_key 'key2' do
   name_real 'Test Key Two'
-  action :delete_keys
+  action :nothing
 end

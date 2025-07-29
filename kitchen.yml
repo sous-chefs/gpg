@@ -7,8 +7,8 @@ provisioner:
   product_name: chef
   # Uncomment when testing idempotency
   # The add & delete key in dummy_key.rb breaks this right now (on purpose)
-  # enforce_idempotency: true
-  # multiple_converge: 2
+  enforce_idempotency: true
+  multiple_converge: 2
   solo_rb:
     treat_deprecation_warnings_as_errors: true
 
