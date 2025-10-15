@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## [2.0.16](https://github.com/sous-chefs/gpg/compare/2.0.15...v2.0.16) (2025-10-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#93](https://github.com/sous-chefs/gpg/issues/93)) ([ffea8b9](https://github.com/sous-chefs/gpg/commit/ffea8b92849b3277ad4253d3dfbf1add5b7943ac))
+
 ## 2.0.8 - *2023-05-16*
 
 * Fix markdown formatting in the changelog
