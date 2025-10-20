@@ -3,7 +3,6 @@
     ".": {
       "package-name": "gpg",
       "changelog-path": "CHANGELOG.md",
-      "changelog-type": "github",
       "release-type": "ruby",
       "include-component-in-tag": false,
       "version-file": "metadata.rb"
