@@ -5,11 +5,12 @@ property :name, String, default: ''
 action :install do
   include_recipe 'yum-epel' if platform_family?('rhel', 'amazon')
 
-  package gpg2_packages
-
-  service 'haveged' do
-    supports [:status, :restart]
-    action :start
+  # On Amazon Linux 2023, gnupg2-minimal conflicts with gnupg2
+  # Use --allowerasing to replace it
+  package gpg2_packages do
+    if platform?('amazon') && node['platform_version'].to_i >= 2023
+      options '--allowerasing'
+    end
   end
 end
 
