@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## [2.1.1](https://github.com/sous-chefs/gpg/compare/v2.1.0...v2.1.1) (2025-10-20)
+
+
+### Bug Fixes
+
+* **ci:** Slack channel posting ([0d45190](https://github.com/sous-chefs/gpg/commit/0d45190f7327ee53ba5bf72395925c29d75887aa))
+
 ## [2.1.0](https://github.com/sous-chefs/gpg/compare/2.0.15...v2.1.0) (2025-10-20)
 
 
