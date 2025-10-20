@@ -1,8 +1,19 @@
 # Testing
 
-Please refer to [the community cookbook documentation on testing](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/main/TESTING.MD).
+This cookbook follows [Chef community cookbook testing standards](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/main/TESTING.MD).
 
-## Quick Start for Local Testing
+## Testing Overview
+
+This cookbook uses:
+
+- **Unit Testing**: [ChefSpec](http://sethvargo.github.io/chefspec/) for in-memory cookbook logic testing
+- **Integration Testing**: Test Kitchen with InSpec for platform-specific validation
+
+## Unit Testing
+
+Unit tests use [ChefSpec](http://sethvargo.github.io/chefspec/) to verify cookbook logic without converging. Unit tests are located in `spec/unit/` and compile the cookbook in-memory to test complex logic quickly.
+
+## Integration Testing
 
 ### Prerequisites
 
@@ -10,10 +21,15 @@ Please refer to [the community cookbook documentation on testing](https://github
 - **Docker**: Required for Dokken driver (faster local testing)
   - macOS: [Docker Desktop](https://www.docker.com/products/docker-desktop)
   - Linux: Install via package manager
+- **Vagrant & VirtualBox**: Alternative to Docker for integration testing
+  - [Vagrant](https://www.vagrantup.com/downloads.html)
+  - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-### Setup
+### Quick Start
 
-1. **Enable Dokken driver** (faster than Vagrant):
+#### Option 1: Docker with Dokken (Recommended - Faster)
+
+1. **Enable Dokken driver**:
 
    ```bash
    export KITCHEN_LOCAL_YAML=kitchen.dokken.yml
@@ -31,15 +47,15 @@ Please refer to [the community cookbook documentation on testing](https://github
    kitchen list
    ```
 
-   You should see Dokken as the driver for all instances.
+#### Option 2: Vagrant with VirtualBox
 
-### Running Tests
-
-#### Run a single platform
+Use the default `kitchen.yml` configuration:
 
 ```bash
-kitchen test default-almalinux-9
+kitchen list
 ```
+
+### Running Integration Tests
 
 #### Run all platforms
 
@@ -47,10 +63,16 @@ kitchen test default-almalinux-9
 kitchen test
 ```
 
-#### Run specific platforms for verification
+#### Run a single platform
 
 ```bash
-kitchen test default-debian-12 default-ubuntu-2204 default-rockylinux-9
+kitchen test default-almalinux-9
+```
+
+#### Run specific platforms
+
+```bash
+kitchen test default-almalinux-9 default-ubuntu-2004
 ```
 
 #### Debug a failing test
