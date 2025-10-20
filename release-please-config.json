@@ -6,7 +6,8 @@
       "changelog-type": "github",
       "release-type": "ruby",
       "include-component-in-tag": false,
-      "version-file": "metadata.rb"
+      "version-file": "metadata.rb",
+      "initial-version": "2.0.16"
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
