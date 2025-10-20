@@ -2,6 +2,21 @@
 
 This file is used to list changes made in each version of the gpg cookbook.
 
+## [2.1.0](https://github.com/sous-chefs/gpg/compare/2.0.15...v2.1.0) (2025-10-20)
+
+
+### Features
+
+* Add keyserver import support and fix integration tests ([#82](https://github.com/sous-chefs/gpg/issues/82)) ([70d1b88](https://github.com/sous-chefs/gpg/commit/70d1b88a8dba62a9378f1a80fc0e331aac9c220f))
+
+
+### Bug Fixes
+
+* **ci:** Perms ([417b687](https://github.com/sous-chefs/gpg/commit/417b687a9f1f90b5f720d40bf19471b11b95dc82))
+* **ci:** Update workflows to use release pipeline ([#93](https://github.com/sous-chefs/gpg/issues/93)) ([ffea8b9](https://github.com/sous-chefs/gpg/commit/ffea8b92849b3277ad4253d3dfbf1add5b7943ac))
+* **release:** Add initial version to release-please config ([63c3ce3](https://github.com/sous-chefs/gpg/commit/63c3ce3700f05efc83c44e3c551aad2015f27e60))
+* **release:** Revert to 2.0.15 and remove corrupted 2.0.16 release ([1d741f0](https://github.com/sous-chefs/gpg/commit/1d741f0b3350ce0b99cdb3f79ebf9dca2f7085fe))
+
 ## [2.0.16](https://github.com/sous-chefs/gpg/compare/2.0.15...v2.0.16) (2025-10-15)
 
 * Add support for adding keys via --keyserver and --recv-keys
