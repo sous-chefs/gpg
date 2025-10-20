@@ -6,13 +6,6 @@ name: release
     branches:
       - main
 
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  packages: write
-  attestations: write
-  id-token: write
 
 jobs:
   release:
@@ -21,3 +14,10 @@ jobs:
       token: ${{ secrets.PORTER_GITHUB_TOKEN }}
       supermarket_user: ${{ secrets.CHEF_SUPERMARKET_USER }}
       supermarket_key: ${{ secrets.CHEF_SUPERMARKET_KEY }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      packages: write
+      attestations: write
+      id-token: write
