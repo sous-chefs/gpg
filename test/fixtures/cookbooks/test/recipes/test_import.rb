@@ -1,3 +1,28 @@
+# Test key import from file and keyserver
+# Depends on test_export.rb having been run first
+
+# Import a key from a file to root keychain
+gpg_key 'import key foo to root keychain' do
+  user 'root'
+  key_file '/tmp/foo.key'
+  action :import
+end
+
+# Import a key from a file to a non-root user keychain
+gpg_key 'import key foo to barfoo keychain' do
+  user 'barfoo'
+  key_file '/tmp/foo.key'
+  action :import
+end
+
+# Import a key from a keyserver
+gpg_key 'Import RVM Key' do
+  keyserver 'keyserver.ubuntu.com'
+  key_fingerprint '409B6B1796C275462A1703113804BB82D39DC0E3'
+  action :import
+end
+
+# Create and import dummy key
 file '/tmp/dummy.key' do
   content <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -27,15 +52,6 @@ gpg_key 'import Dummy key to root keychain' do
   name_real 'dummy'
   key_file '/tmp/dummy.key'
   action :import
-  not_if { ::File.exist?('/tmp/guard.txt') }
-end
-
-gpg_key 'delete public Dummy key' do
-  user 'root'
-  name_real 'dummy'
-  key_fingerprint '7877AF01696A73C4D02176F2964720FF470F4EDB'
-  action :delete_public_key
-  not_if { ::File.exist?('/tmp/guard.txt') }
 end
 
 gpg_key 'import Dummy key to non-root keychain' do
@@ -43,20 +59,4 @@ gpg_key 'import Dummy key to non-root keychain' do
   name_real 'dummy'
   key_file '/tmp/dummy.key'
   action :import
-  not_if { ::File.exist?('/tmp/guard.txt') }
-end
-
-gpg_key 'delete public Dummy key from non-root' do
-  user 'barfoo'
-  name_real 'dummy'
-  key_fingerprint '7877AF01696A73C4D02176F2964720FF470F4EDB'
-  action :delete_public_key
-  not_if { ::File.exist?('/tmp/guard.txt') }
-end
-
-# This set of actions (add then delete) will always trigger.
-# For the purposes of testing we'll stick this file on disk
-# so we know we've done it.
-file '/tmp/guard.txt' do
-  content 'I am here to stop this resource from always firing'
 end

@@ -1,3 +1,5 @@
+require 'shellwords'
+
 unified_mode true
 
 property :batch_name, String,
@@ -62,19 +64,23 @@ property :key_file, String,
          description: 'Keyfile name'
 
 property :key_fingerprint, String,
-         description: 'Key finger print. Used to identify when deleting keys using the :delete action'
+         description: 'Key fingerprint. Used to identify'
 
-# Only Ubuntu > 16.04 supports the pinetree_mode. And requires it
 property :pinentry_mode, [String, FalseClass],
-         default: platform?('ubuntu') && node['platform_version'].to_f > 16.04 ? 'loopback' : false,
+         default: 'loopback',
          description: 'Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.'
 
 property :batch, [true, false],
          default: true,
-         description: 'Turn batch mode on or off when genrating keys'
+         description: 'Turn batch mode on or off when generating keys'
+
+property :keyserver, String,
+         description: 'Keyserver to receive keys from'
 
 action :generate do
-  unless key_exists(new_resource)
+  key_fingerprint = new_resource.key_fingerprint || get_fingerprint(new_resource)
+
+  unless key_exists(new_resource, key_fingerprint)
 
     config_dir = ::File.dirname(new_resource.batch_config_file)
 
@@ -108,56 +114,69 @@ action :generate do
     end
 
     cmd = gpg_cmd
-    cmd << gpg_opts(new_resource) if new_resource.override_default_keyring
-    cmd << " --passphrase #{new_resource.passphrase}"
+    cmd << override_command(new_resource) if new_resource.override_default_keyring
+    cmd << " --passphrase #{Shellwords.escape(new_resource.passphrase)}"
     cmd << ' --yes'
     cmd << ' --batch' if new_resource.batch
-    cmd << ' --pinentry-mode loopback' if new_resource.pinentry_mode
-    cmd << " --gen-key #{new_resource.batch_config_file}"
+    cmd << " --pinentry-mode #{Shellwords.escape(new_resource.pinentry_mode)}" if new_resource.pinentry_mode
+    cmd << " --gen-key #{Shellwords.escape(new_resource.batch_config_file)}"
 
-    execute 'gpg2: generate' do
+    execute "gpg2: generate #{new_resource.batch_name}" do
       command cmd
       live_stream true
       user new_resource.user
       group new_resource.group
     end
-
   end
 end
 
 action :import do
-  execute 'gpg2: import key' do
-    command "#{gpg_cmd} --import #{new_resource.key_file}"
+  package 'dirmngr'
+
+  cmd = if new_resource.keyserver
+          "#{gpg_cmd} --keyserver #{Shellwords.escape(new_resource.keyserver)} --recv-keys #{Shellwords.escape(new_resource.key_fingerprint)}"
+        else
+          "#{gpg_cmd} --import #{Shellwords.escape(new_resource.key_file)}"
+        end
+
+  key_fingerprint = new_resource.key_fingerprint || key_file_fingerprint(new_resource)
+
+  execute "gpg2: Import key #{key_fingerprint}" do
+    command cmd
     user new_resource.user
     group new_resource.group
-    not_if { key_exists(new_resource) }
+    not_if { key_exists(new_resource, key_fingerprint) }
   end
 end
 
 action :export do
   execute 'gpg2: export key' do
-    command "#{gpg_cmd} --export -a \"#{new_resource.name_real}\" > #{new_resource.key_file}"
+    command "#{gpg_cmd} --export -a #{Shellwords.escape(new_resource.name_real)} > #{Shellwords.escape(new_resource.key_file)}"
     user new_resource.user
     group new_resource.group
     not_if { ::File.exist?(new_resource.key_file) }
   end
 end
 
-action :delete_public_key do
+action :delete_keys do
+  key_identifier = new_resource.key_fingerprint || new_resource.name_real
+
   execute 'gpg2: delete key' do
-    command "#{gpg_cmd} --batch --yes --delete-key \"#{new_resource.key_fingerprint}\""
+    command "#{gpg_cmd} --batch --yes --delete-keys #{Shellwords.escape(key_identifier)}"
     user new_resource.user
     group new_resource.group
-    only_if { key_exists(new_resource) }
+    only_if { key_exists(new_resource, key_identifier) }
   end
 end
 
 action :delete_secret_keys do
-  execute 'gpg2: delete key' do
-    command "#{gpg_cmd} --batch --yes --delete-secret-keys \"#{new_resource.key_fingerprint}\""
+  fingerprint = new_resource.key_fingerprint || get_fingerprint(new_resource)
+
+  execute 'gpg2: delete secret key' do
+    command "#{gpg_cmd} --yes --batch --delete-secret-keys #{Shellwords.escape(fingerprint)}"
     user new_resource.user
     group new_resource.group
-    only_if { key_exists(new_resource) }
+    only_if { key_exists(new_resource, fingerprint) }
   end
 end
 
