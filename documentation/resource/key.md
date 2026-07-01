@@ -2,8 +2,10 @@
 
 ## Properties
 
+<!-- markdownlint-disable MD060 -->
+
 | Property                   | Ruby Type       | Default                                | Description                                                                                                |
-|----------------------------|-----------------|----------------------------------------|------------------------------------------------------------------------------------------------------------|
+| --- | --- | --- | --- |
 | `batch_name`               | String          |                                        | Name of  the key/batch to generate.                                                                        |
 | `override_default_keyring` | [true, false]   | `false`                                | Set to true if you want to override the pubring_file and secring_file locations.                           |
 | `pubring_file`             | String          |                                        | Public keyring file location (override_default_keyring must be set to true or this option will be ignored) |
@@ -24,6 +26,8 @@
 | `pinentry_mode`            | [String, false] | `loopback` if Ubuntu or False          | Pinentry mode. Set to loopback on Ubuntu and False (off) for all other platforms.                          |
 | `batch`                    | [true, false]   | true                                   | Turn batch mode on or off when generating keys                                                              |
 | `keyserver`                | String          |                                        | Keyserver to use when importing keys                                                                       |
+
+<!-- markdownlint-enable MD060 -->
 
 ## Actions
 
