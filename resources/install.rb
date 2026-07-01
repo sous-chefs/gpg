@@ -4,7 +4,9 @@ provides :gpg_install
 property :name, String, default: ''
 
 action :install do
-  include_recipe 'yum-epel' if platform_family?('rhel', 'amazon')
+  yum_epel 'default' do
+    only_if { platform_family?('rhel', 'amazon') }
+  end
 
   # On Amazon Linux 2023, gnupg2-minimal conflicts with gnupg2
   # Use --allowerasing to replace it
