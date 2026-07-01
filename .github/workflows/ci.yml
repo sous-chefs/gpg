@@ -43,7 +43,6 @@ jobs:
           - "ubuntu-2004"
           - "ubuntu-2204"
           - "ubuntu-2404"
-          - "ubuntu-2410"
         suite:
           - "default"
       fail-fast: false

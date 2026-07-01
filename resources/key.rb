@@ -1,6 +1,7 @@
 require 'shellwords'
 
 unified_mode true
+provides :gpg_key
 
 property :batch_name, String,
          name_property: true,
