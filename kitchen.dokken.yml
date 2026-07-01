@@ -105,7 +105,3 @@ platforms:
   - name: ubuntu-24.04
     driver:
       image: dokken/ubuntu-24.04
-
-  - name: ubuntu-24.10
-    driver:
-      image: dokken/ubuntu-24.10
