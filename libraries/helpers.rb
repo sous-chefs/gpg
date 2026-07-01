@@ -39,7 +39,7 @@ module Gpg
           minor = version_match[2].to_i
 
           # GPG 2.4.0+ uses keyboxd by default
-          @uses_keyboxd = (major > 2 || (major == 2 && minor >= 4))
+          @uses_keyboxd = major > 2 || (major == 2 && minor >= 4)
           Chef::Log.debug("GPG version #{major}.#{minor} detected, keyboxd: #{@uses_keyboxd}")
           return @uses_keyboxd
         end

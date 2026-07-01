@@ -1,4 +1,5 @@
 unified_mode true
+provides :gpg_install
 
 property :name, String, default: ''
 
